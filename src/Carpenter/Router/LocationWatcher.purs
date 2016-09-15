@@ -49,6 +49,7 @@ update yield dispatch action props state = case action of
     liftEff $ DOM.addEventListener (DOM.hashchange) (DOM.eventListener onHashChange) false (DOM.windowToEventTarget window)
     liftEff $ DOM.addEventListener (DOM.load) (DOM.eventListener onHashChange) false (DOM.windowToEventTarget window)
     state <- liftEff $ getState
+    liftEff $ props.onChange state
     yield $ const state
   ChangeHash hash -> do
     let new = state { hash = hash }
